@@ -11,6 +11,8 @@ import overcloud.blog.usecase.article.get_articles.GetArticles;
 import overcloud.blog.usecase.article.update_article.UpdateArticle;
 import overcloud.blog.usecase.article.update_article.UpdateArticleRequest;
 
+import java.util.UUID;
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController("articles")
 public class ArticleController {

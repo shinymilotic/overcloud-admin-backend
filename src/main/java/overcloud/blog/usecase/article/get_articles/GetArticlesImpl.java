@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class GetArticlesImpl implements GetArticles {
@@ -39,19 +40,22 @@ public class GetArticlesImpl implements GetArticles {
             currentUserId = currentUser.getUserId();
         }
         List<ArticleEntity> articleEntities = articleRepository.findArticles(pageNumber, itemsPerPage);
-        response.setArticlesCount(articleEntities.size());
-        articleEntities.stream().
+        List<Article> articles = articleEntities.stream().map(this::toArticle).toList();
 
-        return getArticlesResponse;
+        response.setArticlesCount(articles.size());
+        response.setArticles(articles);
+
+        return response;
     }
 
-    private GetArticlesSingleResponse toGetArticlesSingleResponse(ArticleSummary article) {
-        return GetArticlesSingleResponse.builder()
-                .id(article.getId().toString())
-                .title(article.getTitle())
-                .body(article.getBody())
-                .description(article.getDescription())
-                .createdAt(article.getCreatedAt().toLocalDateTime())
-                .build();
+    private Article toArticle(ArticleEntity entity) {
+        Article article = new Article();
+        article.setId(entity.getArticleId().toString());
+        article.setTitle(entity.getTitle());
+        article.setDescription(entity.getDescription());
+        article.setCreatedAt(entity.getCreatedAt().toString());
+
+        return article;
     }
+
 }

@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@Builder
 public class Article {
     @JsonProperty("id")
     private String id;
@@ -23,5 +22,5 @@ public class Article {
     private String body;
 
     @JsonProperty("createdAt")
-    private LocalDateTime createdAt;
+    private String createdAt;
 }

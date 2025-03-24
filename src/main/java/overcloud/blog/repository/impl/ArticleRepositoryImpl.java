@@ -45,4 +45,9 @@ public class ArticleRepositoryImpl implements ArticleRepository {
     public void deleteByUserId(UUID userId) {
         jpa.deleteByUserId(userId);
     }
+
+    @Override
+    public void updateSearchVector() {
+        this.jpa.updateSearchVector();
+    }
 }

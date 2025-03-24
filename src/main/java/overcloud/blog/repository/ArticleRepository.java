@@ -9,4 +9,5 @@ public interface ArticleRepository {
     Optional<Boolean> isTitleExist(String title);
     void save(ArticleEntity articleEntity);
     void deleteByUserId(UUID userId);
+    void updateSearchVector();
 }

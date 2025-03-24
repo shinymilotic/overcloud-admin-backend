@@ -33,7 +33,7 @@ public class ArticleController {
     }
 
     @PostMapping("")
-    public Void createArticle(CreateArticleRequest request) {
+    public UUID createArticle(CreateArticleRequest request) {
         return createArticle.createArticle(request);
     }
 

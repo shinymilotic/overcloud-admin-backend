@@ -1,5 +1,7 @@
 package overcloud.blog.usecase.article.create_article;
 
+import java.util.UUID;
+
 public interface CreateArticle {
-    Void createArticle(CreateArticleRequest request);
+    UUID createArticle(CreateArticleRequest request);
 }

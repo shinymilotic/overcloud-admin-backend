@@ -5,8 +5,11 @@ import jakarta.persistence.Query;
 import jakarta.persistence.Tuple;
 import org.springframework.stereotype.Repository;
 import overcloud.blog.entity.ArticleEntity;
+import overcloud.blog.entity.UserEntity;
 import overcloud.blog.repository.ArticleRepository;
 import overcloud.blog.repository.jparepository.JpaArticleRepository;
+import overcloud.blog.usecase.article.get_articles.Article;
+
 import java.sql.Timestamp;
 import java.util.*;
 
@@ -49,5 +52,14 @@ public class ArticleRepositoryImpl implements ArticleRepository {
     @Override
     public void updateSearchVector() {
         this.jpa.updateSearchVector();
+    }
+
+    @Override
+    public List<ArticleEntity> findArticles(int pageNumber, int itemsPerPage) {
+         return entityManager
+                .createQuery("SELECT a FROM ArticleEntity a", ArticleEntity.class)
+                .setFirstResult((itemsPerPage * pageNumber) - itemsPerPage)
+                .setMaxResults(itemsPerPage)
+                .getResultList();
     }
 }

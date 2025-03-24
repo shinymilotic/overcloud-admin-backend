@@ -1,19 +1,15 @@
 package overcloud.blog.usecase.article.get_articles;
 
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import overcloud.blog.auth.bean.SecurityUser;
 import overcloud.blog.auth.service.SpringAuthenticationService;
 import overcloud.blog.entity.ArticleEntity;
 import overcloud.blog.entity.UserEntity;
 import overcloud.blog.repository.ArticleRepository;
 import overcloud.blog.utils.validation.ObjectsValidator;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class GetArticlesImpl implements GetArticles {

@@ -6,6 +6,7 @@ import overcloud.blog.entity.UserEntity;
 import overcloud.blog.repository.UserRepository;
 import overcloud.blog.repository.jparepository.JpaUserRepository;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -50,5 +51,10 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public void deleteUser(UUID userId) {
         jpa.deleteById(userId);
+    }
+
+    @Override
+    public Optional<UserEntity> findById(UUID userId) {
+        return jpa.findById(userId);
     }
 }

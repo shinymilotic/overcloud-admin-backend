@@ -14,7 +14,7 @@ import overcloud.blog.usecase.article.update_article.UpdateArticleRequest;
 import java.util.UUID;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RestController("articles")
+@RestController
 public class ArticleController {
     private final CreateArticle createArticle;
     private final UpdateArticle updateArticle;
@@ -34,28 +34,28 @@ public class ArticleController {
         this.getArticle = getArticle;
     }
 
-    @PostMapping("")
+    @PostMapping("/articles")
     public UUID createArticle(CreateArticleRequest request) {
         return createArticle.createArticle(request);
     }
 
-    @PutMapping("/{articleId}")
+    @PutMapping("/articles/{articleId}")
     public Void updateArticle(@PathVariable("articleId") String articleId,
                               @RequestBody UpdateArticleRequest request) {
         return updateArticle.updateArticle(articleId, request);
     }
 
-    @DeleteMapping("/{articleId}")
+    @DeleteMapping("/articles/{articleId}")
     public Void deleteArticle(@PathVariable("articleId") String articleId) {
         return deleteArticle.deleteArticle(articleId);
     }
 
-    @GetMapping("/{articleId}")
+    @GetMapping("/articles/{articleId}")
     public ArticleResponse getArticle(@PathVariable("articleId") String articleId) {
         return getArticle.getArticle(articleId);
     }
 
-    @GetMapping("")
+    @GetMapping("/articles")
     public ArticleList getArticles(@RequestParam(value = "pageNumber", defaultValue = "1") int pageNumber,
                                    @RequestParam(value = "itemsPerPage", defaultValue = "10") int itemsPerPage) {
         return getArticles.getArticles(pageNumber, itemsPerPage);

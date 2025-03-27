@@ -14,11 +14,10 @@ import overcloud.blog.usecase.user.login.LoginRequest;
 import overcloud.blog.usecase.user.login.LoginResponse;
 import overcloud.blog.usecase.user.update_user.UpdateUser;
 import overcloud.blog.usecase.user.update_user.UpdateUserRequest;
-
 import java.io.IOException;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RestController("users")
+@RestController
 public class UserController {
     private final GetUserListService getUserListService;
     private final CreateUser createUser;
@@ -41,33 +40,33 @@ public class UserController {
         this.getUser = getUser;
     }
 
-    @GetMapping("")
+    @GetMapping("/users")
     public UserListResponse getUsers(@RequestParam(value = "pageNumber", defaultValue = "1") int pageNumber, @RequestParam(value = "itemsPerPage", defaultValue = "10") int itemsPerPage) {
         return getUserListService.getUsers(pageNumber, itemsPerPage);
     }
 
-    @PostMapping("")
+    @PostMapping("/users")
     public Void createUser(@RequestBody CreateUserRequest request) throws IOException {
         return createUser.createUser(request);
     }
 
-    @DeleteMapping("/{userId}")
+    @DeleteMapping("/users/{userId}")
     public Void deleteUser(@PathVariable("userId") String userId) {
         return deleteUser.deleteUser(userId);
     }
 
-    @PutMapping("/{userId}")
+    @PutMapping("/users/{userId}")
     public Void updateUser(@PathVariable("userId") String userId,
                            @RequestBody UpdateUserRequest request) {
         return updateUser.updateUser(userId, request);
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping("/users/{userId}")
     public UserResponse getUser(@PathVariable("userId") String userId) {
         return getUser.getUser(userId);
     }
 
-    @PostMapping("/login")
+    @PostMapping("/users/login")
     public LoginResponse login(@RequestBody LoginRequest loginDto, HttpServletResponse response) {
         return login.login(loginDto, response);
     }

@@ -14,7 +14,7 @@ import overcloud.blog.usecase.tag.update_tag.UpdateTag;
 import overcloud.blog.usecase.tag.update_tag.UpdateTagRequest;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RestController("tags")
+@RestController
 public class TagController {
     private final CreateTag createTagService;
     private final GetTagList getTagsAdmin;
@@ -34,28 +34,28 @@ public class TagController {
         this.getTag = getTag;
     }
 
-    @PostMapping("")
+    @PostMapping("/tags")
     public List<String> createTags(@RequestBody CreateTagRequest createTagRequest) {
         return createTagService.createTags(createTagRequest);
     }
 
-    @GetMapping("")
+    @GetMapping("/tags")
     public TagListResponse getTagList(@RequestParam(value = "pageNumber", defaultValue = "1") int pageNumber,
                                       @RequestParam(value = "itemsPerPage", defaultValue = "10") int itemsPerPage) {
         return getTagsAdmin.getTagList(pageNumber, itemsPerPage);
     }
 
-    @DeleteMapping("")
+    @DeleteMapping("/tags/{tagId}")
     public Void deleteTag(@RequestParam(value = "tagId") String tagId) {
         return deleteTag.deleteTag(tagId);
     }
 
-    @GetMapping("/{tagId}")
+    @GetMapping("/tags/{tagId}")
     public TagResponse getTag(@PathVariable("tagId") String tagId) {
         return getTag.getTag(tagId);
     }
 
-    @PutMapping("/{tagId}")
+    @PutMapping("/tags/{tagId}")
     public Void updateTag(@PathVariable("tagId") String tagId,
                           @RequestBody UpdateTagRequest request) {
         return updateTag.updateTag(tagId, request);

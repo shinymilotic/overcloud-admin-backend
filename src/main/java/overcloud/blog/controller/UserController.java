@@ -3,6 +3,8 @@ package overcloud.blog.controller;
 import jakarta.servlet.http.HttpServletResponse;
 import overcloud.blog.usecase.user.create_user.CreateUserRequest;
 import overcloud.blog.usecase.user.create_user.CreateUser;
+import overcloud.blog.usecase.user.get_current_user.CurrentUser;
+import overcloud.blog.usecase.user.get_current_user.GetCurrentUser;
 import overcloud.blog.usecase.user.get_user.GetUser;
 import overcloud.blog.usecase.user.get_user.UserResponse;
 import overcloud.blog.usecase.user.get_users.GetUserListService;
@@ -25,19 +27,23 @@ public class UserController {
     private final UpdateUser updateUser;
     private final Login login;
     private final GetUser getUser;
+    private final GetCurrentUser getCurrentUserService;
+
 
     public UserController(GetUserListService getUserListService,
                           CreateUser createUser,
                           DeleteUser deleteUser,
                           UpdateUser updateUser,
                           Login login,
-                          GetUser getUser) {
+                          GetUser getUser,
+                          GetCurrentUser getCurrentUserService) {
         this.getUserListService = getUserListService;
         this.createUser = createUser;
         this.deleteUser = deleteUser;
         this.updateUser = updateUser;
         this.login = login;
         this.getUser = getUser;
+        this.getCurrentUserService = getCurrentUserService;
     }
 
     @GetMapping("/users")
@@ -69,5 +75,10 @@ public class UserController {
     @PostMapping("/users/login")
     public LoginResponse login(@RequestBody LoginRequest loginDto, HttpServletResponse response) {
         return login.login(loginDto, response);
+    }
+
+    @GetMapping("/users/current")
+    public CurrentUser getCurrentUser() {
+        return getCurrentUserService.getCurrentUser();
     }
 }

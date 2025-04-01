@@ -1,6 +1,5 @@
 package overcloud.blog.usecase.user.get_current_user;
 
-import org.springframework.beans.propertyeditors.CurrencyEditor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import overcloud.blog.auth.service.SpringAuthenticationService;
@@ -42,6 +41,4 @@ public class GetCurrentUserImpl implements GetCurrentUser {
         response.setBio(currentUser.getBio());
         return response;
     }
-
-
 }
